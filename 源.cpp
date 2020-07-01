@@ -3,10 +3,10 @@
 #include<iomanip>
 #include<string.h>
 #include<stdlib.h>
-#pragma warning(disable:4996)                                 //ÔÚVS±àÒëÆ÷ÖĞºöÂÔÊ¹ÓÃstrcpyÓï¾ä²úÉúµÄ´íÎó
+#pragma warning(disable:4996)                                 //åœ¨VSç¼–è¯‘å™¨ä¸­å¿½ç•¥ä½¿ç”¨strcpyè¯­å¥äº§ç”Ÿçš„é”™è¯¯
 using namespace std;
 const int N = 100;
-struct Date {                                                 //¶¨Òå½á¹¹Ìå±äÁ¿
+struct Date {                                                 //å®šä¹‰ç»“æ„ä½“å˜é‡
     int year;
     int month;
     int day;
@@ -23,15 +23,15 @@ struct employee {
 }; employee employeeinfo[N];
 
 //----------------------------------------------------------------------------------------
-//txtÎÄ¼şĞ´Èëº¯Êı
+//txtæ–‡ä»¶å†™å…¥å‡½æ•°
 void write() {
-    ofstream outfile("employeerecords.txt", ios::out);           //´´½¨ÎÄ¼ş
-    if (!outfile) {                                              //Èç¹ûÎÄ¼ş´´½¨Ê§°Ü£¬¾ÍÖĞÖ¹ºóĞø²Ù×÷
-        cout << "ÎÄ¼ş´´½¨Ê§°Ü";
+    ofstream outfile("employeerecords.txt", ios::out);           //åˆ›å»ºæ–‡ä»¶
+    if (!outfile) {                                              //å¦‚æœæ–‡ä»¶åˆ›å»ºå¤±è´¥ï¼Œå°±ä¸­æ­¢åç»­æ“ä½œ
+        cout << "æ–‡ä»¶åˆ›å»ºå¤±è´¥";
         return;
     }
     for (int i = 0; i < N; i++) {
-        if (strcmp(employeeinfo[i].Name, "0") == 0)              //Ìõ¼şÅĞ¶¨
+        if (strcmp(employeeinfo[i].Name, "0") == 0)              //æ¡ä»¶åˆ¤å®š
             continue;
         outfile << left << setw(4) << setfill(' ') << employeeinfo[i].Id;
         outfile << left << setw(8) << setfill(' ') << employeeinfo[i].Name;
@@ -42,18 +42,18 @@ void write() {
         outfile << left << setw(12) << setfill(' ') << employeeinfo[i].Telephone;
         outfile << left << setw(15) << setfill(' ') << employeeinfo[i].Address << endl;
     }
-    outfile.close();                                             //¹Ø±ÕÎÄ¼ş
+    outfile.close();                                             //å…³é—­æ–‡ä»¶
 }
 //-----------------------------------------------------------------------------
-//ÎÄ¼ş¶ÁÈ¡º¯Êı
+//æ–‡ä»¶è¯»å–å‡½æ•°
 void read() {
-    ifstream infile("employeerecords.txt", ios::in);              //¶¨ÒåÎÄ¼şÊäÈëÁ÷¶ÔÏó£¬ÒÔ¡°¶Á¡±·½Ê½´ò¿ªÎÄ¼ş
+    ifstream infile("employeerecords.txt", ios::in);              //å®šä¹‰æ–‡ä»¶è¾“å…¥æµå¯¹è±¡ï¼Œä»¥â€œè¯»â€æ–¹å¼æ‰“å¼€æ–‡ä»¶
     if (!infile)
-        cout << "ÎÄ¼ş´ò¿ªÊ§°Ü£¡";
+        cout << "æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼";
     int i = 0;
-    while (!infile.eof() && i < N) {                            //ÔÚÎÄ¼şµ½´ï½áÊøÎ»ÖÃÊ±ÖĞÖ¹Ñ­»·
+    while (!infile.eof() && i < N) {                            //åœ¨æ–‡ä»¶åˆ°è¾¾ç»“æŸä½ç½®æ—¶ä¸­æ­¢å¾ªç¯
         infile >> employeeinfo[i].Id;
-        infile >> employeeinfo[i].Name;                          //½«ÎÄ¼şÖĞµÄÄÚÈİ¸³Öµ¸ø½á¹¹Ìå±äÁ¿
+        infile >> employeeinfo[i].Name;                          //å°†æ–‡ä»¶ä¸­çš„å†…å®¹èµ‹å€¼ç»™ç»“æ„ä½“å˜é‡
         infile >> employeeinfo[i].Sex;
         infile >> employeeinfo[i].Title;
         infile >> employeeinfo[i].Major;
@@ -64,40 +64,41 @@ void read() {
         infile >> employeeinfo[i].Address;
         i++;
     }
-    infile.close();                                               //¹Ø±ÕÎÄ¼ş
+    infile.close();                                               //å…³é—­æ–‡ä»¶
 }
 
 //------------------------------------------------------------------------------------
-//Ö°Ô±ĞÅÏ¢Ìí¼Óº¯Êı
+//èŒå‘˜ä¿¡æ¯æ·»åŠ å‡½æ•°
 
-//  Ìí¼ÓÔ±¹¤ĞÅÏ¢Ê±×Ô¶¯Éú³ÉÔ±¹¤Id
+//  æ·»åŠ å‘˜å·¥ä¿¡æ¯æ—¶è‡ªåŠ¨ç”Ÿæˆå‘˜å·¥Id
 
-//  Ô±¹¤IdÎ¨Ò»ÇÒ²»¿ÉĞŞ¸Ä
+//  å‘˜å·¥Idå”¯ä¸€ä¸”ä¸å¯ä¿®æ”¹
 void infoaddition() {
-    int p[1000];                                                  //Éú³ÉId¿â
+    // ä½ è¿™ä¸ªidåº“ åº”è¯¥æ˜¯å…¨å±€å˜é‡å§ ä½ å†™è¿™é‡Œå²‚ä¸æ˜¯è¦è°ƒç”¨ä¸€æ¬¡å†™ä¸€éè¿™ä¸ªå‡½æ•° ç„¶åéƒ½æ˜¯ä»1-1000 æµªè´¹æ—¶é—´ä¸è¯´ è¿˜æœ‰é—®é¢˜ å¯¼è‡´ä½ çš„id å¹¶ä¸å”¯ä¸€
+    int p[1000];                                                  //ç”ŸæˆIdåº“
     for (int i = 1; i < 1000; i++) {
         p[i] = i;
     }
     for (int x = 0; x < N; x++) {
-        if (strcmp(employeeinfo[x].Name, "0") == 0) {             //Ìø¹ıÒÑÓĞÊı¾İ£¬´ÓÆäºóµÄµÚÒ»¸ö¿ÕÊı×éÔªËØ¿ªÊ¼¸³Öµ
-            cout << "ÒªÌí¼ÓµÄÖ°Ô±ĞÅÏ¢:" << endl;
-            cout << "ĞÕÃû" << endl;
+        if (strcmp(employeeinfo[x].Name, "0") == 0) {             //è·³è¿‡å·²æœ‰æ•°æ®ï¼Œä»å…¶åçš„ç¬¬ä¸€ä¸ªç©ºæ•°ç»„å…ƒç´ å¼€å§‹èµ‹å€¼
+            cout << "è¦æ·»åŠ çš„èŒå‘˜ä¿¡æ¯:" << endl;
+            cout << "å§“å" << endl;
             cin >> employeeinfo[x].Name;
-            cout << "ĞÔ±ğ" << endl;
+            cout << "æ€§åˆ«" << endl;
             cin >> employeeinfo[x].Sex;
-            cout << "Ö°³Æ" << endl;
+            cout << "èŒç§°" << endl;
             cin >> employeeinfo[x].Title;
-            cout << "×¨Òµ" << endl;
+            cout << "ä¸“ä¸š" << endl;
             cin >> employeeinfo[x].Major;
-            cout << "³öÉúÈÕÆÚ-Äê" << endl;
+            cout << "å‡ºç”Ÿæ—¥æœŸ-å¹´" << endl;
             cin >> employeeinfo[x].birthday.year;
-            cout << "³öÉúÈÕÆÚ-ÔÂ" << endl;
+            cout << "å‡ºç”Ÿæ—¥æœŸ-æœˆ" << endl;
             cin >> employeeinfo[x].birthday.month;
-            cout << "³öÉúÈÕÆÚ-ÈÕ" << endl;
+            cout << "å‡ºç”Ÿæ—¥æœŸ-æ—¥" << endl;
             cin >> employeeinfo[x].birthday.day;
-            cout << "µç»°" << endl;
+            cout << "ç”µè¯" << endl;
             cin >> employeeinfo[x].Telephone;
-            cout << "¼ÒÍ¥µØÖ·" << endl;
+            cout << "å®¶åº­åœ°å€" << endl;
             cin >> employeeinfo[x].Address;
             for (int a = 0; a < 100; a++) {
                 if (!p[a] == 0) {
@@ -106,42 +107,47 @@ void infoaddition() {
                 }
                 else
                     break;
+                // else åçš„break å•¥æ„æ€ã€‚ã€‚ã€‚ 
+                // a ä»0å¼€å§‹ åˆ°100 ä½ çš„idåº“åè¾¹çš„æ°¸è¿œç”¨ä¸ç€
+                // æ„Ÿè§‰é€»è¾‘æœ‰é—®é¢˜ å†æƒ³æƒ³
+                // æˆ‘çš„æƒ³æ³•ä¸æ˜¯å»ºç«‹ä½ è¿™ç§ idåº“ ç¬¬ä¸€ç§æ–¹æ³•æ˜¯ æœ‰ä¸€ä¸ªå…¨å±€å˜é‡ å­˜æœ€å¤§çš„ idå€¼ æ¯æ¬¡æ›´æ–° æ³¨æ„åˆå§‹åŒ–å’Œæ›´æ–° ç¬¬äºŒç§æ˜¯å½“æ•°ç»„æ˜¯æ ¹æ®ç”¨æˆ·idæ’åˆ—çš„æ—¶å€™
+                // è·å–æœ€åä¸€ä¸ªçš„id çš„å€¼ ç„¶ååŠ 1  ä½ è¿™ç§idåº“çš„å¥½å¤„æ˜¯ èƒ½å­˜æ‰€æœ‰ èƒ½æŠŠ åˆ é™¤æ‰çš„id é‡å¤åˆ©ç”¨ ä½†æ˜¯ä¸çŸ¥é“ä½ æ˜¯å¦ç»´æŠ¤äº†åœ¨åˆ é™¤çš„æ—¶å€™
             }
-            cout << "Ìí¼Ó³É¹¦£¡" << endl;
+            cout << "æ·»åŠ æˆåŠŸï¼" << endl;
             return;
         }
     }
 }
 
 //--------------------------------------------------------------------------------
-//Ö°Ô±ĞÅÏ¢É¾³ıº¯Êı
+//èŒå‘˜ä¿¡æ¯åˆ é™¤å‡½æ•°
 void infodelete() {
     string a;
-    cout << "ÊäÈëĞÕÃû»òÔ±¹¤Id: " << endl;
+    cout << "è¾“å…¥å§“åæˆ–å‘˜å·¥Id: " << endl;
     cin >> a;
-    cout <<"Id  "<< "ĞÕÃû     " << "ĞÔ±ğ " << "Ö°³Æ  " << " ×¨Òµ " << "     ³öÉúÈÕÆÚ  " << "  µç»°ºÅÂë    " << " µØÖ·          " << endl;
+    cout <<"Id  "<< "å§“å     " << "æ€§åˆ« " << "èŒç§°  " << " ä¸“ä¸š " << "     å‡ºç”Ÿæ—¥æœŸ  " << "  ç”µè¯å·ç     " << " åœ°å€          " << endl;
     int i,j=0;
     for (i = 0; i < N; i++) {                                             
-        if (employeeinfo[i].Name==a||employeeinfo[i].Id==a) {                        //±éÀúÊı×é£¬Ñ°ÕÒÓëÊäÈëĞÅÏ¢ÏàÆ¥ÅäµÄÊı¾İ²¢Êä³ö
+        if (employeeinfo[i].Name==a||employeeinfo[i].Id==a) {                        //éå†æ•°ç»„ï¼Œå¯»æ‰¾ä¸è¾“å…¥ä¿¡æ¯ç›¸åŒ¹é…çš„æ•°æ®å¹¶è¾“å‡º
             cout << left << setw(4) << setfill(' ') << employeeinfo[i].Id;
             cout << left << setw(8) << setfill(' ') << employeeinfo[i].Name;
             cout << left << setw(4) << setfill(' ') << employeeinfo[i].Sex;
             cout << left << setw(6) << setfill(' ') << employeeinfo[i].Title;
             cout << left << setw(6) << setfill(' ') << employeeinfo[i].Major;
-            cout << left << setw(4) << setfill(' ') << employeeinfo[i].birthday.year << "Äê" << left << setw(2) << employeeinfo[i].birthday.month << "ÔÂ" << left << setw(2) << employeeinfo[i].birthday.day << "ÈÕ   ";
+            cout << left << setw(4) << setfill(' ') << employeeinfo[i].birthday.year << "å¹´" << left << setw(2) << employeeinfo[i].birthday.month << "æœˆ" << left << setw(2) << employeeinfo[i].birthday.day << "æ—¥   ";
             cout << left << setw(12) << setfill(' ') << employeeinfo[i].Telephone;
             cout << left << setw(15) << setfill(' ') << employeeinfo[i].Address;
-            j++;                                                                      //¼ÇÂ¼ÊÇ·ñÓĞÖØÃû³öÏÖ
+            j++;                                                                      //è®°å½•æ˜¯å¦æœ‰é‡åå‡ºç°
         }
     }
-    if (i >= N)                                                            //Èç¹ûÃ»ÓĞÏàÓ¦ĞÅÏ¢£¬ÔòÔÚÆÁÄ»ÉÏ´òÓ¡¡°²éÎŞ´ËÈË¡±
-        cout << "²éÎŞ´ËÈË\n" << endl;
+    if (i >= N)                                                            //å¦‚æœæ²¡æœ‰ç›¸åº”ä¿¡æ¯ï¼Œåˆ™åœ¨å±å¹•ä¸Šæ‰“å°â€œæŸ¥æ— æ­¤äººâ€
+        cout << "æŸ¥æ— æ­¤äºº\n" << endl;
     if (j == 1) {
-        cout << "ÊÇ·ñÉ¾³ı£¿ ÊäÈë    1--È·ÈÏ  2--È¡Ïû" << endl;
+        cout << "æ˜¯å¦åˆ é™¤ï¼Ÿ è¾“å…¥    1--ç¡®è®¤  2--å–æ¶ˆ" << endl;
         int b;
         cin >> b;
         if (b == 1) {
-            for (; i < N; i++) {                                           //É¾³ıĞÅÏ¢
+            for (; i < N; i++) {                                           //åˆ é™¤ä¿¡æ¯
                 employeeinfo[i].Id = employeeinfo[i + 1].Id;                
                 strcpy((char*)employeeinfo[i].Name ,(char*) employeeinfo[i + 1].Name);
                 strcpy((char*)employeeinfo[i].Sex ,(char*) employeeinfo[i + 1].Sex );
@@ -153,13 +159,13 @@ void infodelete() {
                 employeeinfo[i].birthday.day = employeeinfo[i + 1].birthday.day;
                 strcpy((char*)employeeinfo[i].Address, (char*)employeeinfo[i + 1].Address);
             }
-            cout << "É¾³ı³É¹¦£¡" << endl;
+            cout << "åˆ é™¤æˆåŠŸï¼" << endl;
         }
         else if (b == 2)
             return;
     }
-    else if (j > 1) {                                                      //ÓĞÖØÃû£¬¸ù¾İÆÁÄ»ÉÏµÄÓÃ»§IdÈ·¶¨ÒªÉ¾³ıµÄĞÅÏ¢
-        cout << "ÇëÊäÈë¸ÃÔ±¹¤µÄId£º" << endl;
+    else if (j > 1) {                                                      //æœ‰é‡åï¼Œæ ¹æ®å±å¹•ä¸Šçš„ç”¨æˆ·Idç¡®å®šè¦åˆ é™¤çš„ä¿¡æ¯
+        cout << "è¯·è¾“å…¥è¯¥å‘˜å·¥çš„Idï¼š" << endl;
         string c;
         cin >> c;
         for (int d = 0; d < N; d++) {
@@ -178,7 +184,7 @@ void infodelete() {
                 }
             }
         }
-        cout << "É¾³ı³É¹¦£¡" << endl;
+        cout << "åˆ é™¤æˆåŠŸï¼" << endl;
         return;
     }
         
@@ -186,84 +192,84 @@ void infodelete() {
 }
 
 //---------------------------------------------------------------------------------------
-//Ö°Ô±ĞÅÏ¢ĞŞ¸Äº¯Êı
+//èŒå‘˜ä¿¡æ¯ä¿®æ”¹å‡½æ•°
 void employeemodify() {
     int i = 0;
-    cout << "---ĞŞ¸ÄÈËÊÂµµ°¸Ö°Ô±ĞÅÏ¢---" << endl;
+    cout << "---ä¿®æ”¹äººäº‹æ¡£æ¡ˆèŒå‘˜ä¿¡æ¯---" << endl;
     string p;
-    cout << "ÇëÊäÈëĞÕÃû" << endl;
+    cout << "è¯·è¾“å…¥å§“å" << endl;
     cin >> p;
     for (i = 0; i < N; i++) {
-        if (employeeinfo[i].Name == p) {                                    //¶Ô±ÈÊäÈëµÄĞÅÏ¢
-            cout << "\t ÒÑÕÒµ½´ËÈËµÄĞÅÏ¢" << endl;
-            cout << "\t È·ÈÏÒªĞŞ¸Ä´ËÈËµÄĞÅÏ¢" << endl;
-            cout << "ÇëÊäÈëĞŞ¸ÄºóµÄĞÕÃû" << endl;
+        if (employeeinfo[i].Name == p) {                                    //å¯¹æ¯”è¾“å…¥çš„ä¿¡æ¯
+            cout << "\t å·²æ‰¾åˆ°æ­¤äººçš„ä¿¡æ¯" << endl;
+            cout << "\t ç¡®è®¤è¦ä¿®æ”¹æ­¤äººçš„ä¿¡æ¯" << endl;
+            cout << "è¯·è¾“å…¥ä¿®æ”¹åçš„å§“å" << endl;
             cin >> employeeinfo[i].Name;
-            cout << "ÇëĞŞ¸ÄĞÔ±ğ" << endl;
+            cout << "è¯·ä¿®æ”¹æ€§åˆ«" << endl;
             cin >> employeeinfo[i].Sex;
-            while (strcmp((char*)(employeeinfo[i].Sex), "ÄĞ") != 0 && strcmp((char*)(employeeinfo[i].Sex), "Å®") != 0) {
-                cout << "ÄúÊäÈëµÄĞÔ±ğÓĞÎó£¬ÇëºËÊµºóÔÙÊäÈë£º" << endl;
+            while (strcmp((char*)(employeeinfo[i].Sex), "ç”·") != 0 && strcmp((char*)(employeeinfo[i].Sex), "å¥³") != 0) {
+                cout << "æ‚¨è¾“å…¥çš„æ€§åˆ«æœ‰è¯¯ï¼Œè¯·æ ¸å®åå†è¾“å…¥ï¼š" << endl;
                 cin >> employeeinfo[i].Sex;
             }
-            cout << "ÇëĞŞ¸ÄÖ°³Æ:(½ÌÊÚ¡¢¸±½ÌÊÚ¡¢½²Ê¦)" << endl;
+            cout << "è¯·ä¿®æ”¹èŒç§°:(æ•™æˆã€å‰¯æ•™æˆã€è®²å¸ˆ)" << endl;
             cin >> employeeinfo[i].Title;
-            while ((string)employeeinfo[i].Title != "½ÌÊÚ" && (string)employeeinfo[i].Title != "¸±½ÌÊÚ" && (string)employeeinfo[i].Title != "½²Ê¦") {
-                cout << "ÄúÊäÈëµÄÖ°Ô±Ö°³ÆÓĞÎó£¬ÇëºËÊµºóÔÙÊäÈë:" << endl;
+            while ((string)employeeinfo[i].Title != "æ•™æˆ" && (string)employeeinfo[i].Title != "å‰¯æ•™æˆ" && (string)employeeinfo[i].Title != "è®²å¸ˆ") {
+                cout << "æ‚¨è¾“å…¥çš„èŒå‘˜èŒç§°æœ‰è¯¯ï¼Œè¯·æ ¸å®åå†è¾“å…¥:" << endl;
                 cin >> employeeinfo[i].Title;
             }
-            cout << "ÇëĞŞ¸Ä×¨Òµ:" << endl;
+            cout << "è¯·ä¿®æ”¹ä¸“ä¸š:" << endl;
             cin >> employeeinfo[i].Major;
-            cout << "ÇëĞŞ¸ÄÉúÈÕ-Äê:" << endl;
+            cout << "è¯·ä¿®æ”¹ç”Ÿæ—¥-å¹´:" << endl;
             cin >> employeeinfo[i].birthday.year;
-            cout << "ÇëĞŞ¸ÄÉúÈÕ-ÔÂ:" << endl;
+            cout << "è¯·ä¿®æ”¹ç”Ÿæ—¥-æœˆ:" << endl;
             cin >> employeeinfo[i].birthday.month;
-            cout << "ÇëĞŞ¸ÄÉúÈÕ-ÈÕ:" << endl;
+            cout << "è¯·ä¿®æ”¹ç”Ÿæ—¥-æ—¥:" << endl;
             cin >> employeeinfo[i].birthday.day;
-            cout << "ÇëĞŞ¸Äµç»°:" << endl;
+            cout << "è¯·ä¿®æ”¹ç”µè¯:" << endl;
             cin >> employeeinfo[i].Telephone;
-            cout << "ÇëĞŞ¸ÄµØÖ·:" << endl;
+            cout << "è¯·ä¿®æ”¹åœ°å€:" << endl;
             cin >> employeeinfo[i].Address;
         }
     }
-    cout << "ĞŞ¸Ä³É¹¦£¡" << endl;
+    cout << "ä¿®æ”¹æˆåŠŸï¼" << endl;
     return;
 }
 
 //----------------------------------------------------------------------------------------
-//Ö°Ô±ĞÅÏ¢²éÑ¯º¯Êı£¨¸ù¾İĞÕÃû£©
+//èŒå‘˜ä¿¡æ¯æŸ¥è¯¢å‡½æ•°ï¼ˆæ ¹æ®å§“åï¼‰
 void employeequery() {
     int i;
     int j = 0;
     string p;
-    cout << "ÇëÊäÈëÒª²éÕÒµÄÖ°Ô±µÄĞÕÃû:" << endl;
+    cout << "è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„èŒå‘˜çš„å§“å:" << endl;
     cin >> p;
-    cout <<"Id  "<< " ĞÕÃû   " << "ĞÔ±ğ" << "Ö°³Æ   " << " ×¨Òµ " << "     ³öÉúÈÕÆÚ    " << " µç»°ºÅÂë   " << "      µØÖ·     " << endl;
+    cout <<"Id  "<< " å§“å   " << "æ€§åˆ«" << "èŒç§°   " << " ä¸“ä¸š " << "     å‡ºç”Ÿæ—¥æœŸ    " << " ç”µè¯å·ç    " << "      åœ°å€     " << endl;
     for (i = 0; i < N; i++) {
-        if (employeeinfo[i].Name == p) {                                    //±éÀú½á¹¹ÌåÊı×é£¬Ñ°ÕÒ¶ÔÓ¦ĞÅÏ¢
+        if (employeeinfo[i].Name == p) {                                    //éå†ç»“æ„ä½“æ•°ç»„ï¼Œå¯»æ‰¾å¯¹åº”ä¿¡æ¯
             cout << left << setw(4) << setfill(' ') << employeeinfo[i].Id;
             cout << left << setw(8) << setfill(' ') << employeeinfo[i].Name;
             cout << left << setw(4) << setfill(' ') << employeeinfo[i].Sex;
             cout << left << setw(7) << setfill(' ') << employeeinfo[i].Title;
             cout << left << setw(6) << setfill(' ') << employeeinfo[i].Major;
-            cout << left << setw(4) << setfill(' ') << employeeinfo[i].birthday.year << "Äê"
-                << left << setw(2) << employeeinfo[i].birthday.month << "ÔÂ"
-                << left << setw(2) << employeeinfo[i].birthday.day << "ÈÕ ";
+            cout << left << setw(4) << setfill(' ') << employeeinfo[i].birthday.year << "å¹´"
+                << left << setw(2) << employeeinfo[i].birthday.month << "æœˆ"
+                << left << setw(2) << employeeinfo[i].birthday.day << "æ—¥ ";
             cout << left << setw(12) << setfill(' ') << employeeinfo[i].Telephone;
             cout << left << setw(15) << setfill(' ') << employeeinfo[i].Address;
-            j++;                                                            //ÓÃj¼ÇÂ¼²éÑ¯µ½µÄĞÅÏ¢ÊıÁ¿
+            j++;                                                            //ç”¨jè®°å½•æŸ¥è¯¢åˆ°çš„ä¿¡æ¯æ•°é‡
         }
     }
-    if (j == 0)                                                             //jÎª0£¬ÔòÃ»ÓĞ¶ÔÓ¦ĞÅÏ¢
-        cout << "²éÎŞ´ËÈË\n" << endl;
+    if (j == 0)                                                             //jä¸º0ï¼Œåˆ™æ²¡æœ‰å¯¹åº”ä¿¡æ¯
+        cout << "æŸ¥æ— æ­¤äºº\n" << endl;
 }
-//²éÑ¯º¯Êı£¨¸ù¾İÖ°³Æ£©
+//æŸ¥è¯¢å‡½æ•°ï¼ˆæ ¹æ®èŒç§°ï¼‰
 void enquire() {
     int i;
     int j = 0;
     string p;
-    cout << "ÇëÊäÈëÒª²éÕÒµÄÔ±¹¤µÄÖ°³Æ:" << endl;
+    cout << "è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„å‘˜å·¥çš„èŒç§°:" << endl;
     cin >> p;
-    cout <<"Id  "<< "ĞÕÃû    " << "ĞÔ±ğ " << "Ö°³Æ  " << " ×¨Òµ " << "    ³öÉúÈÕÆÚ    " << "µç»°ºÅÂë    " << "     µØÖ·      " << endl;
+    cout <<"Id  "<< "å§“å    " << "æ€§åˆ« " << "èŒç§°  " << " ä¸“ä¸š " << "    å‡ºç”Ÿæ—¥æœŸ    " << "ç”µè¯å·ç     " << "     åœ°å€      " << endl;
     for (i = 0; i < N; i++) {
         if (employeeinfo[i].Title == p) {
             cout << left << setw(4) << setfill(' ') << employeeinfo[i].Id;
@@ -271,90 +277,86 @@ void enquire() {
             cout << left << setw(4) << setfill(' ') << employeeinfo[i].Sex;
             cout << left << setw(7) << setfill(' ') << employeeinfo[i].Title;
             cout << left << setw(6) << setfill(' ') << employeeinfo[i].Major;
-            cout << left << setw(4) << setfill(' ') << employeeinfo[i].birthday.year << "Äê"
-                << left << setw(2) << employeeinfo[i].birthday.month << "ÔÂ"
-                << left << setw(2) << employeeinfo[i].birthday.day << "ÈÕ ";
+            cout << left << setw(4) << setfill(' ') << employeeinfo[i].birthday.year << "å¹´"
+                << left << setw(2) << employeeinfo[i].birthday.month << "æœˆ"
+                << left << setw(2) << employeeinfo[i].birthday.day << "æ—¥ ";
             cout << left << setw(12) << setfill(' ') << employeeinfo[i].Telephone;
             cout << left << setw(15) << setfill(' ') << employeeinfo[i].Address;
             j++;
         }
     }
     if (j == 0)
-        cout << "Ã»ÓĞÏà¹ØÊı¾İ\n" << endl;
+        cout << "æ²¡æœ‰ç›¸å…³æ•°æ®\n" << endl;
 }
-//Ö°Ô±ĞÅÏ¢Í³¼Æº¯Êı£¨¸ù¾İÖ°³Æ£©
+//èŒå‘˜ä¿¡æ¯ç»Ÿè®¡å‡½æ•°ï¼ˆæ ¹æ®èŒç§°ï¼‰
 void Titlesum() {
-    int i = 0, a = 0, b = 0, c = 0;                                  //¶¨Òå±äÁ¿£¬·Ö±ğ¼ÇÂ¼¶ÔÓ¦ĞÅÏ¢µÄÊıÁ¿
-    cout << "---ÈËÊÂµµ°¸Ö°Ô±ĞÅÏ¢Í³¼Æ---" << endl;
-    for (i; i < N; i++) {                                            //Ñ­»·½á¹¹²éÕÒĞÅÏ¢
-        if (strcmp(employeeinfo[i].Title, "½ÌÊÚ") == 0)
+    int i = 0, a = 0, b = 0, c = 0;                                  //å®šä¹‰å˜é‡ï¼Œåˆ†åˆ«è®°å½•å¯¹åº”ä¿¡æ¯çš„æ•°é‡
+    cout << "---äººäº‹æ¡£æ¡ˆèŒå‘˜ä¿¡æ¯ç»Ÿè®¡---" << endl;
+    for (i; i < N; i++) {                                            //å¾ªç¯ç»“æ„æŸ¥æ‰¾ä¿¡æ¯
+        if (strcmp(employeeinfo[i].Title, "æ•™æˆ") == 0)
             a++;
-        else if (strcmp(employeeinfo[i].Title, "¸±½ÌÊÚ") == 0)
+        else if (strcmp(employeeinfo[i].Title, "å‰¯æ•™æˆ") == 0)
             b++;
-        else if (strcmp(employeeinfo[i].Title, "½²Ê¦") == 0)
+        else if (strcmp(employeeinfo[i].Title, "è®²å¸ˆ") == 0)
             c++;
     }
-    cout << "½ÌÊÚÈËÊıÎª" << a << endl;
-    cout << "¸±½ÌÊÚÈËÊıÎª" << b << endl;
-    cout << "½²Ê¦ÈËÊıÎª" << c << endl;
+    cout << "æ•™æˆäººæ•°ä¸º" << a << endl;
+    cout << "å‰¯æ•™æˆäººæ•°ä¸º" << b << endl;
+    cout << "è®²å¸ˆäººæ•°ä¸º" << c << endl;
 }
 
 /// ---------------------------------------------------------------------
-//  Í¨¹ıÓÃ»§Id²éÑ¯ÓÃ»§ĞÅÏ¢
 
-//1.ÊäÈë²¢»ñÈ¡´ı²éÑ¯ÓÃ»§Id
-
-//2.¸ù¾İId²éÑ¯ĞÅÏ¢
-
-//3.¶Ô²éÑ¯µ½µÄĞÅÏ¢½øĞĞ¸ñÊ½»¯´¦Àí
-
-//4.½«´¦ÀíºóµÄÓÃ»§ĞÅÏ¢´òÓ¡Êä³ö
-
-//5.¹¦ÄÜ½áÊø£¬·µ»ØÖ÷²Ëµ¥
+//  é€šè¿‡ç”¨æˆ·IdæŸ¥è¯¢ç”¨æˆ·ä¿¡æ¯
 void FindById() {
+    //1.è¾“å…¥å¹¶è·å–å¾…æŸ¥è¯¢ç”¨æˆ·Id   è¿™äº›æ³¨é‡Šæ”¾é‡Œè¾¹ ç»™è‡ªå·±æ³¨é‡Š åˆ’åˆ†æ¨¡å—æ¸…æ¥š å¤–è¾¹æ³¨é‡Šæœ‰è‡ªå·±çš„æ ¼å¼
     string p;
     int j;
-    cout << "ÇëÊäÈëÓÃ»§Id£º";
+    cout << "è¯·è¾“å…¥ç”¨æˆ·Idï¼š";
     cin >> p;
-    cout << "Id  " << "ĞÕÃû    " << "ĞÔ±ğ " << "Ö°³Æ  " << " ×¨Òµ " << "    ³öÉúÈÕÆÚ    " << "µç»°ºÅÂë    " << "     µØÖ·      " << endl;
+    cout << "Id  " << "å§“å    " << "æ€§åˆ« " << "èŒç§°  " << " ä¸“ä¸š " << "    å‡ºç”Ÿæ—¥æœŸ    " << "ç”µè¯å·ç     " << "     åœ°å€      " << endl;
+   //2.æ ¹æ®IdæŸ¥è¯¢ä¿¡æ¯
     for (int i = 0; i < N; i++) {
         if (employeeinfo[i].Id == p) {
+            //3.å¯¹æŸ¥è¯¢åˆ°çš„ä¿¡æ¯è¿›è¡Œæ ¼å¼åŒ–å¤„ç†
+            //4.å°†å¤„ç†åçš„ç”¨æˆ·ä¿¡æ¯æ‰“å°è¾“å‡º
             cout << left << setw(4) << setfill(' ') << employeeinfo[i].Id;
             cout << left << setw(8) << setfill(' ') << employeeinfo[i].Name;
             cout << left << setw(4) << setfill(' ') << employeeinfo[i].Sex;
             cout << left << setw(6) << setfill(' ') << employeeinfo[i].Title;
             cout << left << setw(6) << setfill(' ') << employeeinfo[i].Major;
-            cout << left << setw(4) << setfill(' ') << employeeinfo[i].birthday.year << "Äê" << left << setw(2) << employeeinfo[i].birthday.month << "ÔÂ" << left << setw(2) << employeeinfo[i].birthday.day << "ÈÕ   ";
+            cout << left << setw(4) << setfill(' ') << employeeinfo[i].birthday.year << "å¹´" << left << setw(2) << employeeinfo[i].birthday.month << "æœˆ" << left << setw(2) << employeeinfo[i].birthday.day << "æ—¥   ";
             cout << left << setw(12) << setfill(' ') << employeeinfo[i].Telephone;
             cout << left << setw(15) << setfill(' ') << employeeinfo[i].Address;
             j++;
         }
     }
     if (j == 0)
-        cout << "Ã»ÓĞÏà¹ØÊı¾İ\n" << endl;
+        cout << "æ²¡æœ‰ç›¸å…³æ•°æ®\n" << endl;
+    //5.åŠŸèƒ½ç»“æŸï¼Œè¿”å›ä¸»èœå•
 }
 
 int main() {
-    for (; 1;) {                                                     //Ñ­»·½á¹¹Ê¹Ö÷²Ëµ¥ÖØ¸´ÏÔÊ¾
+    for (; 1;) {                                                     //å¾ªç¯ç»“æ„ä½¿ä¸»èœå•é‡å¤æ˜¾ç¤º
         for (int i = 0; i < N; i++)
-            strcpy(employeeinfo[i].Name, "0");                       //³õÊ¼»¯½á¹¹Ìå
-        read();                                                      //¶ÁÎÄ¼ş
-        system("cls");                                               //ÇåÆÁÃüÁî
-        cout << "\t********ÖĞÄÏ´óÑ§ÈËÊÂ¹ÜÀíÏµÍ³£¨Ä£Äâ°æ±¾2020£©*******\n";
-        cout << "\t01------Ö°Ô±ĞÅÏ¢Ìí¼Ó           02------Ö°Ô±ĞÅÏ¢É¾³ı\n";
-        cout << "\t03------Ö°Ô±ĞÅÏ¢ĞŞ¸Ä           04------Ö°Ô±ĞÅÏ¢²éÑ¯\n";
-        cout << "\t05------Ö°Ô±ĞÅÏ¢Í³¼Æ           06----Êı¾İ±¸·İÓë»Ö¸´\n";
-        cout << "\t07------ÍË³ö³ÌĞò\n";
+            strcpy(employeeinfo[i].Name, "0");                       //åˆå§‹åŒ–ç»“æ„ä½“
+        read();                                                      //è¯»æ–‡ä»¶
+        system("cls");                                               //æ¸…å±å‘½ä»¤
+        cout << "\t********ä¸­å—å¤§å­¦äººäº‹ç®¡ç†ç³»ç»Ÿï¼ˆæ¨¡æ‹Ÿç‰ˆæœ¬2020ï¼‰*******\n";
+        cout << "\t01------èŒå‘˜ä¿¡æ¯æ·»åŠ            02------èŒå‘˜ä¿¡æ¯åˆ é™¤\n";
+        cout << "\t03------èŒå‘˜ä¿¡æ¯ä¿®æ”¹           04------èŒå‘˜ä¿¡æ¯æŸ¥è¯¢\n";
+        cout << "\t05------èŒå‘˜ä¿¡æ¯ç»Ÿè®¡           06----æ•°æ®å¤‡ä»½ä¸æ¢å¤\n";
+        cout << "\t07------é€€å‡ºç¨‹åº\n";
         cout << "\t---------------------------------------------------\n";
-        cout << "ÇëÊäÈëĞòºÅ£º";
+        cout << "è¯·è¾“å…¥åºå·ï¼š";
         int order;
         cin >> order;
         switch (order) {
             case 01 :{
-                infoaddition();                                       //Ìí¼ÓÖ°Ô±ĞÅÏ¢
+                infoaddition();                                       //æ·»åŠ èŒå‘˜ä¿¡æ¯
                 while (1) {
                     int a;
-                    cout << "ÊÇ·ñ¼ÌĞøÌí¼ÓÖ°Ô±ĞÅÏ¢£¿ 1---¼ÌĞø  2---ÍË³ö" << endl;
+                    cout << "æ˜¯å¦ç»§ç»­æ·»åŠ èŒå‘˜ä¿¡æ¯ï¼Ÿ 1---ç»§ç»­  2---é€€å‡º" << endl;
                     cin >> a;
                     if (a == 1)
                         infoaddition();
@@ -366,10 +368,10 @@ int main() {
                 continue;
             }
             case 02: {
-                infodelete();                                         //É¾³ıÖ°Ô±ĞÅÏ¢
+                infodelete();                                         //åˆ é™¤èŒå‘˜ä¿¡æ¯
                 while (1) {
                     int a;
-                    cout << "ÊÇ·ñ¼ÌĞøÉ¾³ıÖ°Ô±ĞÅÏ¢£¿ 1---¼ÌĞø  2---ÍË³ö"<<endl;
+                    cout << "æ˜¯å¦ç»§ç»­åˆ é™¤èŒå‘˜ä¿¡æ¯ï¼Ÿ 1---ç»§ç»­  2---é€€å‡º"<<endl;
                     cin >> a;
                     if (a == 1)
                         infodelete();
@@ -381,10 +383,10 @@ int main() {
                 continue;
             }
             case 03:{
-                employeemodify();                                    //ĞŞ¸ÄÖ°Ô±ĞÅÏ¢
+                employeemodify();                                    //ä¿®æ”¹èŒå‘˜ä¿¡æ¯
                 while (1) {
                     int a;
-                    cout << "ÊÇ·ñ¼ÌĞøĞŞ¸Ä³ıÖ°Ô±ĞÅÏ¢£¿ 1---¼ÌĞø  2---ÍË³ö"<<endl;
+                    cout << "æ˜¯å¦ç»§ç»­ä¿®æ”¹é™¤èŒå‘˜ä¿¡æ¯ï¼Ÿ 1---ç»§ç»­  2---é€€å‡º"<<endl;
                     cin >> a;
                     if (a == 1)
                         employeemodify();
@@ -397,21 +399,21 @@ int main() {
             }
             case 04: {
                 int a;
-                cout << "ÇëÊäÈëÒª²éÑ¯µÄÒÀ¾İ£º1--ĞÕÃû   2--Ö°³Æ    3--Id"<<endl;
+                cout << "è¯·è¾“å…¥è¦æŸ¥è¯¢çš„ä¾æ®ï¼š1--å§“å   2--èŒç§°    3--Id"<<endl;
                 cin >> a;
                 if (a == 1)
-                    employeequery();                                 //¸ù¾İĞÕÃû²éÑ¯
+                    employeequery();                                 //æ ¹æ®å§“åæŸ¥è¯¢
                 else if (a == 2)
-                    enquire();                                       //¸ù¾İÖ°³Æ²éÑ¯
+                    enquire();                                       //æ ¹æ®èŒç§°æŸ¥è¯¢
                 else if (a == 3)
-                    FindById();                                      //¸ù¾İId²éÑ¯
+                    FindById();                                      //æ ¹æ®IdæŸ¥è¯¢
                 while (1) {
                     int b;
-                    cout << "ÊÇ·ñ¼ÌĞø²éÑ¯Ö°Ô±ĞÅÏ¢£¿ 1--¼ÌĞø  2--ÍË³ö" << endl;
+                    cout << "æ˜¯å¦ç»§ç»­æŸ¥è¯¢èŒå‘˜ä¿¡æ¯ï¼Ÿ 1--ç»§ç»­  2--é€€å‡º" << endl;
                     cin >> b;
                     if (b == 1) {
                         int c;
-                        cout << "ÇëÊäÈëÒª²éÑ¯µÄÒÀ¾İ£º1--ĞÕÃû   2--Ö°³Æ   3--Id" << endl;
+                        cout << "è¯·è¾“å…¥è¦æŸ¥è¯¢çš„ä¾æ®ï¼š1--å§“å   2--èŒç§°   3--Id" << endl;
                         cin >> c;
                         if (c == 1)
                             employeequery();
@@ -428,24 +430,24 @@ int main() {
                 continue;
             }
             case 05: {
-                Titlesum();                                        //Í³¼ÆÖ°Ô±ĞÅÏ¢
+                Titlesum();                                        //ç»Ÿè®¡èŒå‘˜ä¿¡æ¯
                 system("pause");
                 continue;
             }
-            case 06: {                                             //ĞÂ¹¦ÄÜ¿ª·¢
-                cout << "--´Ë¹¦ÄÜÕıÔÚÎ¬»¤ÖĞ--£¡" << endl;
+            case 06: {                                             //æ–°åŠŸèƒ½å¼€å‘
+                cout << "--æ­¤åŠŸèƒ½æ­£åœ¨ç»´æŠ¤ä¸­--ï¼" << endl;
                 system("pause");
                 continue;
             }
             case 07: {
-                write();                                           //Ğ´ÈëÎÄ¼şºóÍË³ö
-                cout << "ÍË³ö³É¹¦£¡" << endl;
+                write();                                           //å†™å…¥æ–‡ä»¶åé€€å‡º
+                cout << "é€€å‡ºæˆåŠŸï¼" << endl;
                 system("pause");
                 return 0;
                 break;
             }
             default: {
-                cout << " ÎŞĞ§ÊäÈë !" << endl;
+                cout << " æ— æ•ˆè¾“å…¥ !" << endl;
                 continue;
             }
         }
